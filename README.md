@@ -1,6 +1,6 @@
 # Rails Outbox Pattern with Production Observability
 
-A production-ready implementation of the Outbox Pattern for Rails with comprehensive observability, monitoring, and alerting based on [this blog post](https://wilburhimself.github.io/blog/50-after-the-outbox/).
+A production-ready implementation of the Outbox Pattern for Rails with comprehensive observability, monitoring, and alerting based on [this](https://wilburhimself.github.io/blog/38-the-outbox-pattern-reliable-event-publishing-without-distributed-transactions/) and [this blog post](https://wilburhimself.github.io/blog/50-after-the-outbox/).
 
 ## Table of Contents
 
