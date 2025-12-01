@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_01_001610) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_01_031403) do
   create_table "outbox_events", force: :cascade do |t|
     t.string "event_type", null: false
     t.json "payload", default: {}, null: false
-    t.boolean "published", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["published", "created_at"], name: "index_outbox_events_on_published_and_created_at"
+    t.integer "status", default: 0, null: false
+    t.datetime "published_at"
+    t.string "processor_id"
+    t.string "idempotency_key"
+    t.index ["created_at"], name: "index_outbox_events_on_published_and_created_at"
+    t.index ["idempotency_key"], name: "index_outbox_events_on_idempotency_key", unique: true
+    t.index ["processor_id"], name: "index_outbox_events_on_processor_id"
+    t.index ["status"], name: "index_outbox_events_on_status"
   end
 end
