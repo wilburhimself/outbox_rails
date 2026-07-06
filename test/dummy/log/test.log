@@ -1,0 +1,365 @@
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "outbox_events"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "outbox_events" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "event_type" varchar NOT NULL, "payload" json DEFAULT '{}' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "status" integer DEFAULT 0 NOT NULL, "published_at" datetime(6), "processor_id" varchar, "idempotency_key" varchar)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_outbox_events_on_published_and_created_at" ON "outbox_events" ("created_at")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_outbox_events_on_idempotency_key" ON "outbox_events" ("idempotency_key")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_outbox_events_on_processor_id" ON "outbox_events" ("processor_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_outbox_events_on_status" ON "outbox_events" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "outbox_rails_events"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "outbox_rails_events" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "event_type" varchar NOT NULL, "payload" json DEFAULT '{}' NOT NULL, "status" integer DEFAULT 0 NOT NULL, "published_at" datetime(6), "processor_id" varchar, "idempotency_key" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_outbox_rails_events_on_idempotency_key" ON "outbox_rails_events" ("idempotency_key")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_outbox_rails_events_on_processor_id" ON "outbox_rails_events" ("processor_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_outbox_rails_events_on_status_and_created_at" ON "outbox_rails_events" ("status", "created_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_outbox_rails_events_on_status" ON "outbox_rails_events" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260706143000)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (1.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-07-06 15:50:20.824197', '2026-07-06 15:50:20.824198') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'eed19052876c89722170c04c33a050e29cf50574', '2026-07-06 15:50:20.830320', '2026-07-06 15:50:20.830321') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "outbox_events"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "outbox_events" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "event_type" varchar NOT NULL, "payload" json DEFAULT '{}' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "status" integer DEFAULT 0 NOT NULL, "published_at" datetime(6), "processor_id" varchar, "idempotency_key" varchar)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_outbox_events_on_published_and_created_at" ON "outbox_events" ("created_at")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_outbox_events_on_idempotency_key" ON "outbox_events" ("idempotency_key")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_outbox_events_on_processor_id" ON "outbox_events" ("processor_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_outbox_events_on_status" ON "outbox_events" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "outbox_rails_events"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "outbox_rails_events" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "event_type" varchar NOT NULL, "payload" json DEFAULT '{}' NOT NULL, "status" integer DEFAULT 0 NOT NULL, "published_at" datetime(6), "processor_id" varchar, "idempotency_key" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_outbox_rails_events_on_idempotency_key" ON "outbox_rails_events" ("idempotency_key")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_outbox_rails_events_on_processor_id" ON "outbox_rails_events" ("processor_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_outbox_rails_events_on_status_and_created_at" ON "outbox_rails_events" ("status", "created_at")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_outbox_rails_events_on_status" ON "outbox_rails_events" ("status")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260706143000)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-07-06 15:50:38.382997', '2026-07-06 15:50:38.382999') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (1.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'eed19052876c89722170c04c33a050e29cf50574', '2026-07-06 15:50:38.388908', '2026-07-06 15:50:38.388909') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+OutboxEventTest: test_generates_idempotency_key_automatically
+-------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.1ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.094668"], ["updated_at", "2026-07-06 15:50:46.094668"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------
+OutboxEventTest: test_pending_scope_returns_only_unpublished_events
+-------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 2], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.095743"], ["updated_at", "2026-07-06 15:50:46.095743"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.1ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.105957"], ["updated_at", "2026-07-06 15:50:46.105957"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? AND "outbox_rails_events"."id" = ? LIMIT ?[0m  [["status", 0], ["id", 2], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? AND "outbox_rails_events"."id" = ? LIMIT ?[0m  [["status", 0], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+OutboxEventTest: test_accepts_custom_idempotency_key
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.1ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.108122"], ["updated_at", "2026-07-06 15:50:46.108122"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+OutboxEventTest: test_enforces_unique_idempotency_key
+-----------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.1ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.115801"], ["updated_at", "2026-07-06 15:50:46.115801"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+OutboxPublishJobTest: test_sets_processor_id_on_events
+------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"foo\":\"bar\"}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.139669"], ["updated_at", "2026-07-06 15:50:46.139669"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284] Performing OutboxRails::PublishJob (Job ID: f97fb123-77db-4292-9074-b4b86c992284) from Test(default)
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284]   [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? LIMIT ? [0m  [["status", 0], ["LIMIT", 100]]
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284] Publishing event 1: test - {"foo" => "bar"}
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284]   [1m[36mOutboxRails::OutboxEvent Update (0.0ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 15:50:46.198650"], ["processor_id", "7a68eed5"], ["updated_at", "2026-07-06 15:50:46.200598"], ["id", 1]]
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284] [METRIC] outbox.processing_latency_seconds: 0.058981 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [f97fb123-77db-4292-9074-b4b86c992284] Performed OutboxRails::PublishJob (Job ID: f97fb123-77db-4292-9074-b4b86c992284) from Test(default) in 63.19ms
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------
+OutboxPublishJobTest: test_handles_multiple_events_in_batch
+-----------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":0}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.207559"], ["updated_at", "2026-07-06 15:50:46.207559"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":1}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.210205"], ["updated_at", "2026-07-06 15:50:46.210205"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":2}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.210639"], ["updated_at", "2026-07-06 15:50:46.210639"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":3}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.221788"], ["updated_at", "2026-07-06 15:50:46.221788"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":4}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.223669"], ["updated_at", "2026-07-06 15:50:46.223669"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] Performing OutboxRails::PublishJob (Job ID: d44f2eae-10cd-4a4d-a100-96c50de7fb27) from Test(default)
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? LIMIT ? [0m  [["status", 0], ["LIMIT", 100]]
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] Publishing event 1: test - {"index" => 0}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mOutboxRails::OutboxEvent Update (0.1ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 15:50:46.282205"], ["processor_id", "7a68eed5"], ["updated_at", "2026-07-06 15:50:46.283291"], ["id", 1]]
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] [METRIC] outbox.processing_latency_seconds: 0.074646 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] Publishing event 2: test - {"index" => 1}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mOutboxRails::OutboxEvent Update (1.2ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 15:50:46.347576"], ["processor_id", "7a68eed5"], ["updated_at", "2026-07-06 15:50:46.349505"], ["id", 2]]
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] [METRIC] outbox.processing_latency_seconds: 0.137371 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] Publishing event 3: test - {"index" => 2}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mOutboxRails::OutboxEvent Update (0.2ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 15:50:46.404214"], ["processor_id", "7a68eed5"], ["updated_at", "2026-07-06 15:50:46.404608"], ["id", 3]]
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] [METRIC] outbox.processing_latency_seconds: 0.193575 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] Publishing event 4: test - {"index" => 3}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mOutboxRails::OutboxEvent Update (0.3ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 15:50:46.460484"], ["processor_id", "7a68eed5"], ["updated_at", "2026-07-06 15:50:46.461011"], ["id", 4]]
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] [METRIC] outbox.processing_latency_seconds: 0.238696 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] Publishing event 5: test - {"index" => 4}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mOutboxRails::OutboxEvent Update (0.5ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 15:50:46.513411"], ["processor_id", "7a68eed5"], ["updated_at", "2026-07-06 15:50:46.514457"], ["id", 5]]
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] [METRIC] outbox.processing_latency_seconds: 0.289742 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [d44f2eae-10cd-4a4d-a100-96c50de7fb27] Performed OutboxRails::PublishJob (Job ID: d44f2eae-10cd-4a4d-a100-96c50de7fb27) from Test(default) in 290.33ms
+  [1m[36mOutboxRails::OutboxEvent Load (0.1ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.1ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.3ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+OutboxPublishJobTest: test_processes_pending_events
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.3ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"foo\":\"bar\"}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.535617"], ["updated_at", "2026-07-06 15:50:46.535617"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8] Performing OutboxRails::PublishJob (Job ID: 78f70482-55fd-456b-9a46-89a033bddde8) from Test(default)
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8]   [1m[36mOutboxRails::OutboxEvent Load (0.1ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? LIMIT ? [0m  [["status", 0], ["LIMIT", 100]]
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8] Publishing event 1: test - {"foo" => "bar"}
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8]   [1m[36mOutboxRails::OutboxEvent Update (0.7ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 15:50:46.592907"], ["processor_id", "7a68eed5"], ["updated_at", "2026-07-06 15:50:46.593165"], ["id", 1]]
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8] [METRIC] outbox.processing_latency_seconds: 0.05729 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [78f70482-55fd-456b-9a46-89a033bddde8] Performed OutboxRails::PublishJob (Job ID: 78f70482-55fd-456b-9a46-89a033bddde8) from Test(default) in 56.81ms
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+ExampleControllerTest: test_create_action_publishes_event
+---------------------------------------------------------
+  [1m[36mOutboxRails::OutboxEvent Count (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "outbox_rails_events"[0m
+Started POST "/example" for 127.0.0.1 at 2026-07-06 11:50:46 -0400
+Processing by ExampleController#create as HTML
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.1ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "user_created"], ["payload", "{\"user_id\":\"f77101e9-5614-4522-98ee-e3a15898001d\",\"email\":\"test-1783353046@example.com\"}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 15:50:46.720099"], ["updated_at", "2026-07-06 15:50:46.720099"]]
+[ActiveJob] Enqueued OutboxRails::PublishJob (Job ID: 9c537c36-34ba-41ae-8b70-1a9212b22269) to Test(default)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/example
+Completed 302 Found in 25ms (ActiveRecord: 1.1ms (2 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mOutboxRails::OutboxEvent Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "outbox_rails_events"[0m
+  [1m[36mOutboxRails::OutboxEvent Load (0.8ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" ORDER BY "outbox_rails_events"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------------
+ExampleControllerTest: test_create_action_publishes_event
+---------------------------------------------------------
+  [1m[36mOutboxRails::OutboxEvent Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "outbox_rails_events"[0m
+Started POST "/example" for 127.0.0.1 at 2026-07-06 12:13:06 -0400
+Processing by ExampleController#create as HTML
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.4ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "user_created"], ["payload", "{\"user_id\":\"ca4c6203-7aaf-47e8-89d2-37f3be905aae\",\"email\":\"test-1783354386@example.com\"}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.260616"], ["updated_at", "2026-07-06 16:13:06.260616"]]
+[ActiveJob] Enqueued OutboxRails::PublishJob (Job ID: b03066a4-5c18-4a72-9773-88e2762d0b79) to Test(default)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/example
+Completed 302 Found in 14ms (ActiveRecord: 0.7ms (2 queries, 0 cached) | GC: 0.7ms)
+  [1m[36mOutboxRails::OutboxEvent Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "outbox_rails_events"[0m
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" ORDER BY "outbox_rails_events"."id" DESC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+---------------------------------------------------
+OutboxPublishJobTest: test_processes_pending_events
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"foo\":\"bar\"}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.267434"], ["updated_at", "2026-07-06 16:13:06.267434"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995] Performing OutboxRails::PublishJob (Job ID: 8c83546d-f96a-4386-bf7e-96b6bcff6995) from Test(default)
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995]   [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? LIMIT ? [0m  [["status", 0], ["LIMIT", 100]]
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995] Publishing event 1: test - {"foo" => "bar"}
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995]   [1m[36mOutboxRails::OutboxEvent Update (2.3ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 16:13:06.323820"], ["processor_id", "29c4d333"], ["updated_at", "2026-07-06 16:13:06.324857"], ["id", 1]]
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995] [METRIC] outbox.processing_latency_seconds: 0.056386 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [8c83546d-f96a-4386-bf7e-96b6bcff6995] Performed OutboxRails::PublishJob (Job ID: 8c83546d-f96a-4386-bf7e-96b6bcff6995) from Test(default) in 61.94ms
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------------
+OutboxPublishJobTest: test_handles_multiple_events_in_batch
+-----------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.1ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":0}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.333066"], ["updated_at", "2026-07-06 16:13:06.333066"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":1}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.339420"], ["updated_at", "2026-07-06 16:13:06.339420"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":2}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.340415"], ["updated_at", "2026-07-06 16:13:06.340415"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":3}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.341063"], ["updated_at", "2026-07-06 16:13:06.341063"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"index\":4}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.342110"], ["updated_at", "2026-07-06 16:13:06.342110"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] Performing OutboxRails::PublishJob (Job ID: cdbc9869-9df5-46a9-9dcc-a1d475a827c0) from Test(default)
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? LIMIT ? [0m  [["status", 0], ["LIMIT", 100]]
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] Publishing event 1: test - {"index" => 0}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mOutboxRails::OutboxEvent Update (0.2ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 16:13:06.400243"], ["processor_id", "29c4d333"], ["updated_at", "2026-07-06 16:13:06.402091"], ["id", 1]]
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] [METRIC] outbox.processing_latency_seconds: 0.067177 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] Publishing event 2: test - {"index" => 1}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mOutboxRails::OutboxEvent Update (0.2ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 16:13:06.457273"], ["processor_id", "29c4d333"], ["updated_at", "2026-07-06 16:13:06.458722"], ["id", 2]]
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] [METRIC] outbox.processing_latency_seconds: 0.117853 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] Publishing event 3: test - {"index" => 2}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mOutboxRails::OutboxEvent Update (0.2ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 16:13:06.516287"], ["processor_id", "29c4d333"], ["updated_at", "2026-07-06 16:13:06.517548"], ["id", 3]]
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] [METRIC] outbox.processing_latency_seconds: 0.175872 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] Publishing event 4: test - {"index" => 3}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mOutboxRails::OutboxEvent Update (0.3ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 16:13:06.587269"], ["processor_id", "29c4d333"], ["updated_at", "2026-07-06 16:13:06.590653"], ["id", 4]]
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] [METRIC] outbox.processing_latency_seconds: 0.246206 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] Publishing event 5: test - {"index" => 4}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mOutboxRails::OutboxEvent Update (0.3ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 16:13:06.647247"], ["processor_id", "29c4d333"], ["updated_at", "2026-07-06 16:13:06.647821"], ["id", 5]]
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] [METRIC] outbox.processing_latency_seconds: 0.305137 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [cdbc9869-9df5-46a9-9dcc-a1d475a827c0] Performed OutboxRails::PublishJob (Job ID: cdbc9869-9df5-46a9-9dcc-a1d475a827c0) from Test(default) in 303.88ms
+  [1m[36mOutboxRails::OutboxEvent Load (0.1ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+------------------------------------------------------
+OutboxPublishJobTest: test_sets_processor_id_on_events
+------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.1ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{\"foo\":\"bar\"}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.670601"], ["updated_at", "2026-07-06 16:13:06.670601"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba] Performing OutboxRails::PublishJob (Job ID: af6a946d-d529-4068-9541-b80709b007ba) from Test(default)
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba]   [1m[36mOutboxRails::OutboxEvent Load (0.1ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? LIMIT ? [0m  [["status", 0], ["LIMIT", 100]]
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba] Publishing event 1: test - {"foo" => "bar"}
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba]   [1m[36mOutboxRails::OutboxEvent Update (0.4ms)[0m  [1m[33mUPDATE "outbox_rails_events" SET "status" = ?, "published_at" = ?, "processor_id" = ?, "updated_at" = ? WHERE "outbox_rails_events"."id" = ?[0m  [["status", 2], ["published_at", "2026-07-06 16:13:06.731289"], ["processor_id", "29c4d333"], ["updated_at", "2026-07-06 16:13:06.733108"], ["id", 1]]
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba] [METRIC] outbox.processing_latency_seconds: 0.060688 second {event_type: "test"}
+[ActiveJob] [OutboxRails::PublishJob] [af6a946d-d529-4068-9541-b80709b007ba] Performed OutboxRails::PublishJob (Job ID: af6a946d-d529-4068-9541-b80709b007ba) from Test(default) in 57.64ms
+  [1m[36mOutboxRails::OutboxEvent Load (0.0ms)[0m  [1m[34mSELECT "outbox_rails_events".* FROM "outbox_rails_events" WHERE "outbox_rails_events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-----------------------------------------------------
+OutboxEventTest: test_enforces_unique_idempotency_key
+-----------------------------------------------------
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.2ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.737408"], ["updated_at", "2026-07-06 16:13:06.737408"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+----------------------------------------------------
+OutboxEventTest: test_accepts_custom_idempotency_key
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.744483"], ["updated_at", "2026-07-06 16:13:06.744483"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------
+OutboxEventTest: test_generates_idempotency_key_automatically
+-------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.746786"], ["updated_at", "2026-07-06 16:13:06.746786"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK TRANSACTION[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mBEGIN deferred TRANSACTION[0m
+-------------------------------------------------------------------
+OutboxEventTest: test_pending_scope_returns_only_unpublished_events
+-------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 2], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.748930"], ["updated_at", "2026-07-06 16:13:06.748930"]]
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."idempotency_key" = ? LIMIT ?[0m  [["idempotency_key", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Create (0.0ms)[0m  [1m[32mINSERT INTO "outbox_rails_events" ("event_type", "payload", "status", "published_at", "processor_id", "idempotency_key", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["event_type", "test"], ["payload", "{}"], ["status", 0], ["published_at", nil], ["processor_id", nil], ["idempotency_key", "[FILTERED]"], ["created_at", "2026-07-06 16:13:06.755533"], ["updated_at", "2026-07-06 16:13:06.755533"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? AND "outbox_rails_events"."id" = ? LIMIT ?[0m  [["status", 0], ["id", 2], ["LIMIT", 1]]
+  [1m[36mOutboxRails::OutboxEvent Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "outbox_rails_events" WHERE "outbox_rails_events"."status" = ? AND "outbox_rails_events"."id" = ? LIMIT ?[0m  [["status", 0], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TRANSACTION[0m

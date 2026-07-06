@@ -2,9 +2,9 @@ require "test_helper"
 
 class OutboxPublishJobTest < ActiveJob::TestCase
   test "processes pending events" do
-    event = OutboxEvent.create!(event_type: "test", payload: { foo: "bar" }, status: :pending)
+    event = OutboxRails::OutboxEvent.create!(event_type: "test", payload: { foo: "bar" }, status: :pending)
 
-    OutboxPublishJob.perform_now
+    OutboxRails::PublishJob.perform_now
 
     event.reload
     assert_equal "published", event.status
@@ -14,10 +14,10 @@ class OutboxPublishJobTest < ActiveJob::TestCase
 
   test "handles multiple events in batch" do
     events = 5.times.map do |i|
-      OutboxEvent.create!(event_type: "test", payload: { index: i }, status: :pending)
+      OutboxRails::OutboxEvent.create!(event_type: "test", payload: { index: i }, status: :pending)
     end
 
-    OutboxPublishJob.perform_now
+    OutboxRails::PublishJob.perform_now
 
     events.each do |event|
       event.reload
@@ -26,9 +26,9 @@ class OutboxPublishJobTest < ActiveJob::TestCase
   end
 
   test "sets processor_id on events" do
-    event = OutboxEvent.create!(event_type: "test", payload: { foo: "bar" }, status: :pending)
+    event = OutboxRails::OutboxEvent.create!(event_type: "test", payload: { foo: "bar" }, status: :pending)
 
-    OutboxPublishJob.perform_now
+    OutboxRails::PublishJob.perform_now
 
     event.reload
     assert_not_nil event.processor_id
