@@ -20,10 +20,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_06_143000) do
     t.datetime "published_at"
     t.string "processor_id"
     t.string "idempotency_key"
-    t.index ["created_at"], name: "index_outbox_events_on_published_and_created_at"
-    t.index ["idempotency_key"], name: "index_outbox_events_on_idempotency_key", unique: true
-    t.index ["processor_id"], name: "index_outbox_events_on_processor_id"
-    t.index ["status"], name: "index_outbox_events_on_status"
+    t.index [ "created_at" ], name: "index_outbox_events_on_published_and_created_at"
+    t.index [ "idempotency_key" ], name: "index_outbox_events_on_idempotency_key", unique: true
+    t.index [ "processor_id" ], name: "index_outbox_events_on_processor_id"
+    t.index [ "status" ], name: "index_outbox_events_on_status"
   end
 
   create_table "outbox_rails_events", force: :cascade do |t|
@@ -35,9 +35,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_06_143000) do
     t.string "idempotency_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["idempotency_key"], name: "index_outbox_rails_events_on_idempotency_key", unique: true
-    t.index ["processor_id"], name: "index_outbox_rails_events_on_processor_id"
-    t.index ["status", "created_at"], name: "index_outbox_rails_events_on_status_and_created_at"
-    t.index ["status"], name: "index_outbox_rails_events_on_status"
+    t.index [ "idempotency_key" ], name: "index_outbox_rails_events_on_idempotency_key", unique: true
+    t.index [ "processor_id" ], name: "index_outbox_rails_events_on_processor_id"
+    t.index [ "status", "created_at" ], name: "index_outbox_rails_events_on_status_and_created_at"
+    t.index [ "status" ], name: "index_outbox_rails_events_on_status"
   end
 end
