@@ -13,4 +13,8 @@ Rake::TestTask.new(:test) do |t|
   t.warning = false
 end
 
+# Load Rails tasks from the dummy application
+APP_RAKEFILE = File.expand_path("test/dummy/Rakefile", __dir__)
+load APP_RAKEFILE if File.exist?(APP_RAKEFILE)
+
 task default: :test

@@ -14,6 +14,6 @@ class CreateOutboxRailsEvents < ActiveRecord::Migration[8.0]
     add_index :outbox_rails_events, :idempotency_key, unique: true
     add_index :outbox_rails_events, :status
     add_index :outbox_rails_events, :processor_id
-    add_index :outbox_rails_events, [:status, :created_at], name: "index_outbox_rails_events_on_status_and_created_at"
+    add_index :outbox_rails_events, [ :status, :created_at ], name: "index_outbox_rails_events_on_status_and_created_at"
   end
 end

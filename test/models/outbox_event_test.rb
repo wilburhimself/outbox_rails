@@ -1,4 +1,4 @@
-require "test_helper"
+require_relative "../test_helper"
 
 class OutboxEventTest < ActiveSupport::TestCase
   test "pending scope returns only unpublished events" do
